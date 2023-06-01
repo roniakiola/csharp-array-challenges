@@ -22,7 +22,7 @@ for (int i = 0; i < arr1Common.Length; i++)
 {
   Console.Write("{0} ", arr1Common[i]);
 }
-Console.Write("\n");
+Console.WriteLine();
 
 /* 
 Challenge 2. Inverse the elements of a jagged array.
@@ -46,7 +46,7 @@ for (int i = 0; i < arr2.Length; i++)
   {
     Console.Write("{0} ", arr2[i][j]);
   }
-  Console.Write("\n");
+  Console.WriteLine();
 }
 
 // /* 
@@ -75,22 +75,44 @@ for (int i = 0; i < arr3.Length; i++)
   {
     Console.Write("{0} ", arr3[i][j]);
   }
-  Console.Write("\n");
+  Console.WriteLine();
 }
-
 
 // /* 
 // Challenge 4. Inverse column/row of a rectangular array.
 // For example, given: int[,] arr = {{1,2,3}, {4,5,6}}
 // Expected result: {{1,4},{2,5},{3,6}}
 //  */
-// int[,] InverseRec(int[,] recArray)
-// {
+int[,] InverseRec(int[,] recArray)
+{
+  int rows = recArray.GetLength(0);
+  int columns = recArray.GetLength(1);
+  int[,] inversedArr = new int[columns, rows];
 
-// }
-// int[,] arr4 = { { 1, 2, 3 }, { 4, 5, 6 } };
-// int[,] arr4Inverse = InverseRec(arr4);
+  for (int i = 0; i < rows; i++)
+  {
+    for (int j = 0; j < columns; j++)
+    {
+      inversedArr[j, i] = recArray[i, j];
+    }
+  }
+  return inversedArr;
+}
+int[,] arr4 = { { 1, 2, 3 }, { 4, 5, 6 } };
+int[,] arr4Inverse = InverseRec(arr4);
 // /* write method to print arr4Inverse */
+Console.WriteLine("4nd task:");
+int rows = arr4Inverse.GetLength(0);
+int columns = arr4Inverse.GetLength(1);
+
+for (int i = 0; i < rows; i++)
+{
+  for (int j = 0; j < columns; j++)
+  {
+    Console.Write("{0} ", arr4Inverse[i, j]);
+  }
+  Console.WriteLine();
+}
 
 // /* 
 // Challenge 5. Write a function that accepts a variable number of params of any of these types: 
