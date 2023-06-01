@@ -214,79 +214,126 @@ void GuessingGame()
 }
 GuessingGame();
 
-// /* Challenge 8. Provide class Product, OrderItem, Cart, which make a feature of a store
-// Complete the required features in OrderItem and Cart, so that the test codes are error-free */
+/* Challenge 8. Provide class Product, OrderItem, Cart, which make a feature of a store
+Complete the required features in OrderItem and Cart, so that the test codes are error-free */
 
-// var product1 = new Product(1, 30);
-// var product2 = new Product(2, 50);
-// var product3 = new Product(3, 40);
-// var product4 = new Product(4, 35);
-// var product5 = new Product(5, 75);
+var product1 = new Product(1, 30);
+var product2 = new Product(2, 50);
+var product3 = new Product(3, 40);
+var product4 = new Product(4, 35);
+var product5 = new Product(5, 75);
 
-// var orderItem1 = new OrderItem(product1, 2);
-// var orderItem2 = new OrderItem(product2, 1);
-// var orderItem3 = new OrderItem(product3, 3);
-// var orderItem4 = new OrderItem(product4, 2);
-// var orderItem5 = new OrderItem(product5, 5);
-// var orderItem6 = new OrderItem(product2, 2);
+var orderItem1 = new OrderItem(product1, 2);
+var orderItem2 = new OrderItem(product2, 1);
+var orderItem3 = new OrderItem(product3, 3);
+var orderItem4 = new OrderItem(product4, 2);
+var orderItem5 = new OrderItem(product5, 5);
+var orderItem6 = new OrderItem(product2, 2);
 
-// var cart = new Cart();
-// cart.AddToCart(orderItem1, orderItem2, orderItem3, orderItem4, orderItem5, orderItem6);
+var cart = new Cart();
+cart.AddToCart(orderItem1, orderItem2, orderItem3, orderItem4, orderItem5, orderItem6);
 
-// //get 1st item in cart
-// var firstItem = cart[0];
-// Console.WriteLine(firstItem);
+//get 1st item in cart
+var firstItem = cart[0];
+Console.WriteLine(firstItem);
 
-// //Get cart info
-// cart.GetCartInfo(out int totalPrice, out int totalQuantity);
-// Console.WriteLine("Total Quantity: {0}, Total Price: {1}", totalQuantity, totalPrice);
+//Get cart info
+cart.GetCartInfo(out int totalPrice, out int totalQuantity);
+Console.WriteLine("Total Quantity: {0}, Total Price: {1}", totalQuantity, totalPrice);
 
-// //get sub array from a range
-// var subCart = cart[1, 3];
-// Console.WriteLine(subCart);
+//get sub array from a range
+var subCart = cart[1, 3];
+foreach (var item in subCart)
+{
+  Console.WriteLine(item);
+}
 
-// class Product
-// {
-//   public int Id { get; set; }
-//   public int Price { get; set; }
+class Product
+{
+  public int Id { get; set; }
+  public int Price { get; set; }
 
-//   public Product(int id, int price)
-//   {
-//     this.Id = id;
-//     this.Price = price;
-//   }
-// }
+  public Product(int id, int price)
+  {
+    this.Id = id;
+    this.Price = price;
+  }
+}
 
-// class OrderItem : Product
-// {
-//   public int Quantity { get; set; }
+class OrderItem : Product
+{
+  public int Quantity { get; set; }
 
-//   public OrderItem(Product product, int quantity) : base(product.Id, product.Price)
-//   {
-//     this.Quantity = quantity;
-//   }
+  public OrderItem(Product product, int quantity) : base(product.Id, product.Price)
+  {
+    this.Quantity = quantity;
+  }
 
-//   /* Override ToString() method so the item can be printed out conveniently with Id, Price, and Quantity */
-// }
+  public override string ToString()
+  {
+    return $"Id: {Id}, Price: {Price}, Quantity: {Quantity}";
+  }
+}
 
-// class Cart
-// {
-//   private List<OrderItem> _cart { get; set; } = new List<OrderItem>();
+class Cart
+{
+  private List<OrderItem> _cart { get; set; } = new List<OrderItem>();
 
-//   /* Write indexer property to get nth item from _cart */
+  public OrderItem this[int index]
+  {
+    get { return _cart[index]; }
+  }
 
-//   /* Write indexer property to get items of a range from _cart */
+  public List<OrderItem> this[int start, int end]
+  {
+    get { return _cart.GetRange(start, end - start + 1); }
+  }
 
-//   public void AddToCart(params OrderItem[] items)
-//   {
-//     /* this method should check if each item exists --> increase value / or else, add item to cart */
-//   }
-//   /* Write another method called Index */
+  public void AddToCart(params OrderItem[] items)
+  {
+    /* this method should check if each item exists --> increase value / or else, add item to cart */
+    foreach (var item in items)
+    {
+      bool itemExists = false;
+      foreach (var cartItem in _cart)
+      {
+        if (cartItem.Id == item.Id)
+        {
+          cartItem.Quantity += item.Quantity;
+          itemExists = true;
+          break;
+        }
+      }
+      if (!itemExists)
+      {
+        _cart.Add(item);
+      }
+    }
+  }
+  public int Index(OrderItem item)
+  {
+    return _cart.IndexOf(item);
+  }
 
-//   /* Write another method called GetCartInfo(), which out put 2 values: 
-//   total price, total products in cart*/
+  public void GetCartInfo(out int totalPrice, out int totalQuantity)
+  {
+    totalPrice = 0;
+    totalQuantity = 0;
+    foreach (var item in _cart)
+    {
+      totalPrice += item.Price * item.Quantity;
+      totalQuantity += item.Quantity;
+    }
+  }
 
-//   /* Override ToString() method so Console.WriteLine(cart) can print
-//   id, unit price, unit quantity of each item*/
+  public override string ToString()
+  {
+    string cartInfo = "";
+    foreach (var item in _cart)
+    {
+      cartInfo += item.ToString() + "\n";
+    }
+    return cartInfo;
+  }
 
-// }
+}
