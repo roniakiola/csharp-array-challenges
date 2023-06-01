@@ -56,11 +56,27 @@ for (int i = 0; i < arr2.Length; i++)
 //  */
 void CalculateDiff(int[][] jaggedArray)
 {
-
+  for (int i = 0; i < jaggedArray.Length; i++)
+  {
+    for (int j = 0; j < jaggedArray[i].Length - 1; j++)
+    {
+      jaggedArray[i][j] = jaggedArray[i][j] - jaggedArray[i][j + 1];
+    }
+    jaggedArray[i] = jaggedArray[i].Take(jaggedArray[i].Length - 1).ToArray();
+  }
 }
 int[][] arr3 = { new int[] { 1, 2 }, new int[] { 1, 2, 3 } };
 CalculateDiff(arr3);
 // /* write method to print arr3 */
+Console.WriteLine("3rd task:");
+for (int i = 0; i < arr3.Length; i++)
+{
+  for (int j = 0; j < arr3[i].Length; j++)
+  {
+    Console.Write("{0} ", arr3[i][j]);
+  }
+  Console.Write("\n");
+}
 
 
 // /* 
