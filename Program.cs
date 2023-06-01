@@ -7,11 +7,20 @@ Expected result: int[] {1,2} since 1 and 2 are both available in sub arrays.
 
 int[] CommonItems(int[][] jaggedArray)
 {
-
+  HashSet<int> duplicates = new HashSet<int>(jaggedArray[0]);
+  for (int i = 1; i < jaggedArray.Length; i++)
+  {
+    duplicates.IntersectWith(jaggedArray[i]);
+  }
+  return duplicates.ToArray();
 }
 int[][] arr1 = { new int[] { 1, 2 }, new int[] { 2, 1, 5 } };
 int[] arr1Common = CommonItems(arr1);
 /* write method to print arr1Common */
+for (int i = 0; i < arr1Common.Length; i++)
+{
+  Console.WriteLine(arr1Common[i]);
+}
 
 /* 
 Challenge 2. Inverse the elements of a jagged array.
@@ -120,46 +129,46 @@ Console.WriteLine(subCart);
 
 class Product
 {
-    public int Id { get; set; }
-    public int Price { get; set; }
+  public int Id { get; set; }
+  public int Price { get; set; }
 
-    public Product(int id, int price)
-    {
-        this.Id = id;
-        this.Price = price;
-    }
+  public Product(int id, int price)
+  {
+    this.Id = id;
+    this.Price = price;
+  }
 }
 
 class OrderItem : Product
 {
-    public int Quantity { get; set; }
+  public int Quantity { get; set; }
 
-    public OrderItem(Product product, int quantity) : base(product.Id, product.Price)
-    {
-        this.Quantity = quantity;
-    }
+  public OrderItem(Product product, int quantity) : base(product.Id, product.Price)
+  {
+    this.Quantity = quantity;
+  }
 
-    /* Override ToString() method so the item can be printed out conveniently with Id, Price, and Quantity */
+  /* Override ToString() method so the item can be printed out conveniently with Id, Price, and Quantity */
 }
 
 class Cart
 {
-    private List<OrderItem> _cart { get; set; } = new List<OrderItem>();
+  private List<OrderItem> _cart { get; set; } = new List<OrderItem>();
 
-    /* Write indexer property to get nth item from _cart */
+  /* Write indexer property to get nth item from _cart */
 
-    /* Write indexer property to get items of a range from _cart */
+  /* Write indexer property to get items of a range from _cart */
 
-    public void AddToCart(params OrderItem[] items)
-    {
-        /* this method should check if each item exists --> increase value / or else, add item to cart */
-    }
-    /* Write another method called Index */
+  public void AddToCart(params OrderItem[] items)
+  {
+    /* this method should check if each item exists --> increase value / or else, add item to cart */
+  }
+  /* Write another method called Index */
 
-    /* Write another method called GetCartInfo(), which out put 2 values: 
-    total price, total products in cart*/
+  /* Write another method called GetCartInfo(), which out put 2 values: 
+  total price, total products in cart*/
 
-    /* Override ToString() method so Console.WriteLine(cart) can print
-    id, unit price, unit quantity of each item*/
+  /* Override ToString() method so Console.WriteLine(cart) can print
+  id, unit price, unit quantity of each item*/
 
 }
