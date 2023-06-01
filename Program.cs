@@ -122,12 +122,28 @@ for (int i = 0; i < rows; i++)
 // - Finally print everything out. 
 // Example: Demo("hello", 1, 2, "world") 
 // Expected result: hello world; 3 */
-// void Demo()
-// {
+void Demo(params object[] values)
+{
+  string sentence = "";
+  int sum = 0;
 
-// }
-// Demo("hello", 1, 2, "world"); //should print out "hello world; 3"
-// Demo("My", 2, 3, "daughter", true, "is");//should print put "My daughter is; 5"
+  foreach (object value in values)
+  {
+    if (value is string)
+    {
+      sentence += value + " ";
+    }
+    else if (value is int)
+    {
+      sum += (int)value;
+    }
+  }
+
+  Console.WriteLine($"{sentence.TrimEnd()}; {sum}");
+}
+Console.WriteLine("5th Task:");
+Demo("hello", 1, 2, "world"); //should print out "hello world; 3"
+Demo("My", 2, 3, "daughter", true, "is");//should print put "My daughter is; 5"
 
 
 // /* Challenge 6. Write a function to swap 2 objects but only if they are of the same type 
