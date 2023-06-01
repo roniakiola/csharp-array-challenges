@@ -180,11 +180,39 @@ Console.WriteLine(testNum1 + " " + testNum2);
 // The function will think of a random integer number (lets say within 100) 
 // and ask the user to input a guess. 
 // It’ll repeat the asking until the user puts the correct answer. */
-// void GuessingGame()
-// {
+void GuessingGame()
+{
+  Random random = new Random();
+  int targetNumber = random.Next(1, 101);
+  int guess = 0;
 
-// }
-// GuessingGame();
+  while (guess != targetNumber)
+  {
+    Console.Write("Enter your guess: ");
+    string input = Console.ReadLine();
+
+    if (int.TryParse(input, out guess))
+    {
+      if (guess == targetNumber)
+      {
+        Console.WriteLine("You won!");
+      }
+      else if (guess < targetNumber)
+      {
+        Console.WriteLine("Too low. Try again.");
+      }
+      else
+      {
+        Console.WriteLine("Too high. Try again.");
+      }
+    }
+    else
+    {
+      Console.WriteLine("Invalid input.");
+    }
+  }
+}
+GuessingGame();
 
 // /* Challenge 8. Provide class Product, OrderItem, Cart, which make a feature of a store
 // Complete the required features in OrderItem and Cart, so that the test codes are error-free */
