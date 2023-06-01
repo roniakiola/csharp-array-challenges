@@ -149,10 +149,32 @@ Demo("My", 2, 3, "daughter", true, "is");//should print put "My daughter is; 5"
 // /* Challenge 6. Write a function to swap 2 objects but only if they are of the same type 
 // and if they’re string, lengths have to be more than 5. 
 // If they’re numbers, they have to be more than 18. */
-// void SwapTwo()
-// {
-
-// }
+void SwapTwo(ref object obj1, ref object obj2)
+{
+  if (obj1.GetType() == obj2.GetType())
+  {
+    if (obj1 is string && obj2 is string && ((string)obj1).Length > 5 && ((string)obj2).Length > 5)
+    {
+      object temp = obj1;
+      obj1 = obj2;
+      obj2 = temp;
+    }
+    else if (obj1 is int && obj2 is int && ((int)obj1 > 18) && ((int)obj2 > 18))
+    {
+      object temp = obj1;
+      obj1 = obj2;
+      obj2 = temp;
+    }
+  }
+}
+object testString1 = "Initially first";
+object testString2 = "Initially second";
+object testNum1 = 19;
+object testNum2 = 20;
+SwapTwo(ref testString1, ref testString2);
+SwapTwo(ref testNum1, ref testNum2);
+Console.WriteLine(testString1 + ", " + testString2);
+Console.WriteLine(testNum1 + " " + testNum2);
 
 // /* Challenge 7. Write a function that does the guessing game. 
 // The function will think of a random integer number (lets say within 100) 
